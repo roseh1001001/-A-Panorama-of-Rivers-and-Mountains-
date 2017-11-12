@@ -61,7 +61,7 @@ def done(time_passed):
 
 
 clock=pygame.time.Clock()
-time_passed = clock.tick()
+
 if __name__ == '__main__':
         p = Process(target=done, args=(clock,))
         p.start()
@@ -73,7 +73,11 @@ while True:
             pygame.quit()
             sys.exit()
 
-
+    time_passed = clock.tick()
+    if __name__ == '__main__':
+        p = Process(target=done, args=(time_passed,))
+        p.start()
+        p.join()
         
     pygame.display.flip()
     pygame.display.update()
