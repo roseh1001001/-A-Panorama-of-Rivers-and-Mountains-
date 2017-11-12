@@ -1,123 +1,79 @@
-import Tkinter as tk
 import pygame, sys
 import ImageWriter
 from multiprocessing import Process
 
-
-
 BLACK = (0,0,0)
+pygame.init()
+surf = pygame.display.set_mode((1440,661))
+pygame.display.set_caption('A Panorama of Rivers and Mountains')
+surf.fill(BLACK)
 
-def Surface(a):
-    while a:
-        pygame.init()
-        surf = pygame.display.set_mode((1276,593),pygame.FULLSCREEN)
-        pygame.display.set_caption('')
-        surf.fill(BLACK)
-        pglst=["pg1(0).jpg","pg1(00).jpg","pg1(1).jpg","pg1(2).jpg","pg1(3).jpg",
-                "pg2(1).jpg","pg2(2).jpg","pg2(3).jpg",
-                "pg3(1).jpg","pg3(2).jpg","pg3(3).jpg",
-                "pg4(1).jpg","pg4(2).jpg","pg4(3).jpg",
-                "pg5(1).jpg", "pg5(2).jpg", "pg5(3).jpg","pg6.jpg"]
-        newpglst=[]
+pglst=["pg1(0).jpg","pg1(00).jpg","pg1(1).jpg","pg1(2).jpg","pg1(3).jpg",
+        "pg2(1).jpg","pg2(2).jpg","pg2(3).jpg",
+        "pg3(1).jpg","pg3(2).jpg","pg3(3).jpg",
+        "pg4(1).jpg","pg4(2).jpg","pg4(3).jpg",
+        "pg5(1).jpg", "pg5(2).jpg", "pg5(3).jpg","pg6.jpg"]
+newpglst=[]
+for i in pglst:
+    a=pygame.image.load(i).convert()
+    newpglst.append(a)
+timelst=[0]
+timelap=0
+for j in newpglst:
+        width = ImageWriter.getWidth(j)
+        timelap+=1.0*width/30
+        timelst.append(round(timelap))
+#print timelst
+#print newpglst
 
-        for i in pglst:
-            a=pygame.image.load(i).convert()
-            newpglst.append(a)
-        timelst=[0]
-        timelap=0
-        for j in newpglst:
-            width = ImageWriter.getWidth(j)
-            timelap+=1.0*width/10
-            timelst.append(timelap)
+def move(i,time_passed):
+    time_passed_second = time_passed/1000.0-timelst[i]
+    width = ImageWriter.getWidth(newpglst[i])
+    print time_passed
+    y0 = 0
+    if time_passed>=0 and y0<=1440+width:
+        surf.blit(newpglst[i], (1440 - y0, 0))
+        distance_moved = time_passed_second *(30)
+        print distance_moved
+        y0+= distance_moved
+        #print y0
+   # print 'move'
 
-
-        def move(i):
-            time_passed = clock.tick()-timelst[i]
-            y0 = 0
-            while time_passed>0:
-                surf.blit(newpglst[i], (1276 - y0, 0))
-                width = ImageWriter.getWidth(newpglst[i])
-                time_passed = clock.tick()-timelst[i]
-                while y0<=1276+width:
-                    time_passed_seconds = time_passed / 1000.0
-                    distance_moved = time_passed_seconds *10
-                    y0+= distance_moved
-        def done(k):
-            while k:
-                move(0)
-                move(1)
-                move(2)
-                move(3)
-                move(4)
-                move(5)
-                move(6)
-                move(7)
-                move(8)
-                move(9)
-                move(10)
-                move(11)
-                move(12)
-                move(13)
-                move(14)
-                move(15)
-                move(16)
-                move(17)
-        clock = pygame.time.Clock()
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-            if __name__ == '__main__':
-                p= Process(target=done,args=(1,))
-                p.start()
-                p.join()
-
-        pygame.display.flip()
-        pygame.display.update()
+def done(time_passed):
+        move(0,time_passed)
+        move(1,time_passed)
+        move(2,time_passed)
+        move(3,time_passed)
+        move(4,time_passed)
+        move(5,time_passed)
+        move(6,time_passed)
+        move(7,time_passed)
+        move(8,time_passed)
+        move(9,time_passed)
+        move(10,time_passed)
+        move(11,time_passed)
+        move(12,time_passed)
+        move(13,time_passed)
+        move(14,time_passed)
+        move(15,time_passed)
+        move(16,time_passed)
+        move(17,time_passed)
 
 
-    '''#def move(speed):
+clock=pygame.time.Clock()
+time_passed = clock.tick()
+if __name__ == '__main__':
+        p = Process(target=done, args=(clock,))
+        p.start()
+        p.join()
 
-    clock = pygame.time.Clock()
-    for i in range(len(newpglst)):
-        obj=newpglst[i]
-        if i>0:
-            w0=ImageWriter.getWidth(obj)
-            y0=w0
-            surf.blit(newpglst[i-1], (1276 - y0, 0))
-            time_passed = clock.tick()
-            time_passed_seconds = time_passed / 1000.0
-            distance_moved = time_passed_seconds * speed
-            x += distance_moved
-
-
-        x=0
-        while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    sys.exit()
-            w = ImageWriter.getWidth(i)
-            while x<=1276+w:
-                surf.blit(i,(1276-x,0))
-                w=ImageWriter.getWidth(i)
-                time_passed = clock.tick()
-                time_passed_seconds = time_passed / 1000.0
-                distance_moved = time_passed_seconds * speed
-                x+=distance_moved
-                if x = w:
-                    surf.blit(i, (1276 - x, 0))
-                    continue'''
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
 
 
-
-root= tk.Tk()
-root.title('A Panorama of Rivers and Mountains')
-root.geometry("1450x712")
-canvas=tk.Canvas(root,width=1450,height=711,bg='white')
-im=tk.PhotoImage(file='Overview.gif')
-canvas.create_image(725,355,image=im)
-canvas.bind_all("<Button-1>",Surface)
-canvas.pack()
-root.mainloop()
+        
+    pygame.display.flip()
+    pygame.display.update()
