@@ -1,0 +1,32 @@
+import Tkinter as tk
+import pygame, sys
+(width, height) = (1276,593)
+WHITE = (255, 255, 255)
+class Start():
+    def __init__(self,root):
+        self.button0=tk.Button(root, text="0", command=self.Surface, borderwidth=0, height=1, width=1)
+        self.button0.grid(row=0,column=0)
+    def Surface(self):
+        surf = pygame.display.set_mode((width, height),pygame.FULLSCREEN)
+        pygame.display.set_caption('')
+        surf.fill(WHITE)
+        pg = pygame.image.load('pg1(01).jpg').convert()
+        pg = pygame.transform.scale(pg, (1276, 593))
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+            surf.blit(pg, (0, 0))
+            pygame.display.flip()
+            pygame.display.update()
+
+root= tk.Tk()
+root.title('A Panorama of Rivers and Mountains')
+root.geometry("1450x712")
+canvas=tk.Canvas(root,width=1450,height=711,bg='white')
+im=tk.PhotoImage(file='Overview.gif')
+canvas.create_image(725,355,image=im)
+canvas.pack()
+myStart=Start(root)
+root.mainloop()
