@@ -29,7 +29,7 @@ def Surface(a):
             timelst.append(round(timelap))
 
 
-        #print timelst
+        print timelst
         # print newpglst
 
         def move(x, time_passed):
@@ -39,29 +39,29 @@ def Surface(a):
             y0 = 0
             if (y0 <= 1440 + w) and (time_passed_second > 0):
                 surf.blit(newpglst[x], (1440 - y0, 0))
-                #print "run", time_passed_second
+                print "run", time_passed_second
                 distance_moved = time_passed_second * (30)
-                #print "distance_moved"
-                #print distance_moved
+                print "distance_moved"
+                print distance_moved
                 y0 += distance_moved
 
 
 
-                #print 'move'
-                #print y0
+                print 'move'
+                print y0
 
 
 
         def done(time_passed):
             move(0, time_passed)
-            #print "move0"
+            print "move0"
             move(1, time_passed)
             move(2, time_passed)
             move(3, time_passed)
             move(4, time_passed)
             move(5, time_passed)
             move(6, time_passed)
-            #print "move6"
+            print "move6"
             move(7, time_passed)
             move(8, time_passed)
             move(9, time_passed)
@@ -73,7 +73,7 @@ def Surface(a):
             move(15, time_passed)
             move(16, time_passed)
             move(17, time_passed)
-            #print "move17"
+            print "move17"
 
         start = time.time()
 
