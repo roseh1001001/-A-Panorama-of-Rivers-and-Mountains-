@@ -1,3 +1,32 @@
+#the program used on confirming location.
+
+import pygame, sys
+
+BLACK = (0, 0, 0)
+pygame.init()
+surf = pygame.display.set_mode((3087, 663))
+pygame.display.set_caption('get location')
+surf.fill(BLACK)
+a = pygame.image.load(filename).convert()
+
+
+while True:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            sys.exit()
+        if event.type == pygame.MOUSEBUTTONUP:
+            x, y = pygame.mouse.get_pos()
+            print (x, y)
+    surf.blit(a,(0,0))
+
+    pygame.display.flip()
+    pygame.display.update()
+
+
+
+
+
 
 #if I don't use rect.center as coordx and to fill rect with img
 #so the coord would be as left upper corner
@@ -13,35 +42,11 @@ pg5lst=[(1060,526),(1440,419),(1562,384)]
         rect.center = location
         dest.blit(source, rect)
 #then the location would be
-(1011, 599)
-(1619, 451)
-(1558, 424)
-(2140, 442)
-(2590, 460)
-(2701, 464)
-(2806, 557)
-
-(192, 623)
-(318, 555)
-(592, 600)
-(1241, 584)
-
-
-
-(999, 639)
-(1705, 401)
-(1748, 400)
-(2879, 609)
-(2915, 588)
-
-(770, 602)
-(2345, 418)
-(2378, 408)
-(2424, 372)
-
-(1082, 526)
-(1447, 422)
-(1569, 386)
+pg1lst=[(1011, 599),(1619, 451),(1558, 424),(2140, 442),(2590, 460),(2701, 464),(2806, 557)]
+pg2lst=[(192, 623),(318, 555),(592, 600),(1241, 584)]
+pg3lst=[(999, 639),(1705, 401),(1748, 400),(2879, 609),(2915, 588)]
+pg4lst=[(770, 602),(2345, 418),(2378, 408),(2424, 372)]
+pg5lst=[(1082, 526),(1447, 422),(1569, 386)]
 
 boat1lst=[("pg1-1.jpg"),("pg1-2.jpg"),("pg1-3.jpg"),("pg1-4.jpg"),("pg1-5.jpg"),("pg1-6.jpg"),("pg1-7.jpg")]
 boat2lst=[("pg2-1.jpg"),("pg2-2.jpg"),("pg2-3.jpg"),("pg2-4.jpg")]
