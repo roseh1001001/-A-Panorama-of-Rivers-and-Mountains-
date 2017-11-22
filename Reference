@@ -1,0 +1,40 @@
+import ImageWriter
+import math
+'''create reference here'''
+pglst=["pg10.jpg","pg20.jpg","pg30.jpg","pg40.jpg","pg50.jpg"]
+reference=[]
+for filename in reference:
+    pic=ImageWriter.loadPicture(filename)
+    reference.append(pic)
+
+def nearblack(i,x,y):
+    color=ImageWriter.getColor(reference[i],x,y)
+    if (color[0]+color[1]+color[2])/3<5:
+        return True
+    else:
+        return False
+
+#for object sprit
+def isColliding(data,sprit):
+    #sprit=resource.get_rec()
+    #sprit has got inheritance from...
+    x0,y0 =sprit.centerx, sprit.center
+    w=sprit.width
+    h=sprit.width
+    r=math.sqrt((w/2)**2+(h/2)**2)
+    if w>h:
+        for x in range(x0-r,x0+r+1):
+            for y in range(y0-r,y0+r+1):
+                if (x-x0)**2+(y-y0)**2<=r**2:
+                    if nearblack(i,x,y):
+                        if data.operationofsprit=True: #need to be set
+                            sprit.v=0
+                            return True
+                        else:
+                            sprit.turn()
+                            return True
+                    else:
+                        return False
+
+
+
