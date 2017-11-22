@@ -1,6 +1,5 @@
 import pygame, math
 from gameSprite import GameSprite
-from Utils import Utils
 
 class MovingSprite(GameSprite):
     def __init__(self, data, x, y, img, v, a, deaccel=None):
