@@ -4,7 +4,7 @@ from Utils import Utils
 
 class MovingSprite(GameSprite):
     def __init__(self, data, x, y, img, v, a, deaccel=None):
-        super().__init__(data, x, y, img)
+        super(MovingSprite,self).__init__(data, x, y, img)
         self.v = v
         self.targetV = v
         self.accel = a
