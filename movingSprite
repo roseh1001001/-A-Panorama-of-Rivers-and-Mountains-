@@ -50,3 +50,4 @@ class MovingSprite(GameSprite):
         else:
             self.v += self.accel
             if self.v > self.targetV: self.v = self.targetV
+
