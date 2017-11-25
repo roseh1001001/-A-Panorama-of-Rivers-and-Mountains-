@@ -1,9 +1,9 @@
 import pygame, math
-from gameSprite import GameSprite
+from gameSprit import GameSprite
 
 class MovingSprite(GameSprite):
-    def __init__(self, data, x, y, img, v, a, deaccel=None):
-        super(MovingSprite,self).__init__(data, x, y, img)
+    def __init__(self, data, x, y, img,time_passed,school, v, a, deaccel=None):
+        super(MovingSprite,self).__init__(data, x, y, img,time_passed,school)
         self.v = v
         self.targetV = v
         self.accel = a
@@ -13,6 +13,7 @@ class MovingSprite(GameSprite):
 
         self.targetX = self.x
         self.targetY = self.y
+        self.updateScreenCoords()
 
     def flipSprite(self):
         self.image = pygame.transform.flip(self.image, True, False)
