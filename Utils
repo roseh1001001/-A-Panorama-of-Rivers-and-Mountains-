@@ -3,13 +3,8 @@ import math, random, pygame
 class Utils():
     pygame.init()
     smallFont = pygame.font.SysFont("serif", 12)
-    smallishFont = pygame.font.SysFont("serif", 14)
     medFont = pygame.font.SysFont("serif", 16)
     largishFont = pygame.font.SysFont("serif", 20)
-    bigFont = pygame.font.SysFont("serif", 42)
-    medSansFont = pygame.font.SysFont("Arial", 16)
-
-    WHITE = (255,255,255)
     BLACK = (0,0,0)
 
     def almostEqual(n1, n2, epsilon=10**-4):
