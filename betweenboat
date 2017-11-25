@@ -1,11 +1,11 @@
 import pygame
-from movingSprite import MovingSprite
+from gameSprit import GameSprite
 
-class betweenBoat(MovingSprite):
-    def __init__(self, data, x, y, img):
-        super(betweenboat,self).__init__(data, x, y, img)
+class betweenBoat(GameSprite):
+    def __init__(self, data, x, y, img,time_passed,school):
+        super(betweenBoat,self).__init__(data, x, y, img,time_passed,school)
 
-    #other is a MovingSprite
+    #other is a GameSprite
     def isColliding(self, other):
 
         #overlap function only takes ints
@@ -19,6 +19,3 @@ class betweenBoat(MovingSprite):
         (offsetX, offsetY) = (int(x-self.x), int(y - self.y))
         overlap = self.mask.overlap(mask, (offsetX, offsetY))
         return (overlap != None)
-
-    def draw(self, surface):
-        surface.blit(self.image, self.rect)
