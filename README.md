@@ -20,7 +20,3 @@ In preliminary plan, PIL, pygame, tkinter, sys are the basic libraries.
 
 The hard part, in my view, is when boat moves, the picture should also move in calculated distance in same time;there are so many boats with different initial location and attached surface; double-click also approach more larger pics; boats' various behaviors.
 
-
-(as for the identification of finger, I consider to use help-circle-paper on finger, the function on directing boat might stimulate people’s interest as I think it should require people’s adaptation. )
-In this way, people can appreciate the painting and gain fun at same time.
-
