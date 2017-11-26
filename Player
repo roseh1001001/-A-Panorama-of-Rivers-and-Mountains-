@@ -16,7 +16,7 @@ class Player(MovingSprite):
         self.school=school
         self.operationofsprit=True
 
-        self.rect.x =x+self.SCREENX
+        self.rect.x =x+self.screenX
         self.rect.y =y  #sprite location on screen
 
 
