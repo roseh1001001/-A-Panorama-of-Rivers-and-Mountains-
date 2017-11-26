@@ -9,7 +9,8 @@ pglst=["pg10.jpg","pg20.jpg","pg30.jpg","pg40.jpg","pg50.jpg"]
 #    reference.append(pic)
 
 def nearblack(i,x,y):
-    color=ImageWriter.getColor(pglst[i],x,y)
+    a=ImageWriter.loadPicture(pglst[i])
+    color=ImageWriter.getColor(a,x,y)
     if (color[0]+color[1]+color[2])/3<5:
         return True
     else:
