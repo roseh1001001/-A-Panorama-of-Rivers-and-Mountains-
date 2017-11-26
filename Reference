@@ -3,13 +3,13 @@ import math
 import boat
 '''create reference here'''
 pglst=["pg10.jpg","pg20.jpg","pg30.jpg","pg40.jpg","pg50.jpg"]
-reference=[]
-for filename in reference:
-    pic=ImageWriter.loadPicture(filename)
-    reference.append(pic)
+#reference=[]
+#for filename in reference:
+#    pic=ImageWriter.loadPicture(filename)
+#    reference.append(pic)
 
 def nearblack(i,x,y):
-    color=ImageWriter.getColor(reference[i],x,y)
+    color=ImageWriter.getColor(pglst[i],x,y)
     if (color[0]+color[1]+color[2])/3<5:
         return True
     else:
