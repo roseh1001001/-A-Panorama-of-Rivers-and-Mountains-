@@ -1,0 +1,114 @@
+import pygame, math
+from movingSprite import MovingSprite
+import Reference
+from Utils import Utils
+
+
+class Player(MovingSprite):
+    def __init__(self, data, x, y,img,time_passed, school):
+        super(Player,self).__init__(data, x, y, img,time_passed,school, 0, 1.5, 1)
+        self.deaccel = 1
+        self.minVDist = 50
+        self.maxVDist = 300
+        self.minV = 3
+        self.maxV = 11
+        self.interactionDistSq = 100**2
+        self.school=school
+        self.operationofsprit=True
+
+        self.rect.x =x+self.SCREENX
+        self.rect.y =y  #sprite location on screen
+
+
+        if self.school == 1:
+            self.STAGEHEIGHT = 661
+            self.STAGEWIDTH = 3078
+        elif self.school == 2:
+            self.STAGEHEIGHT = 661
+            self.STAGEWIDTH = 3119
+        elif self.school == 3:
+            self.STAGEHEIGHT = 661
+            self.STAGEWIDTH = 3161
+        elif self.school == 4:
+            self.STAGEHEIGHT = 661
+            self.STAGEWIDTH = 3099
+        elif self.school == 5:
+            self.STAGEHEIGHT = 661
+            self.STAGEWIDTH = 3099
+
+
+    def isLocationLegal(self, data):
+        xLegal = ((self.x >= 0) and (self.x < self.STAGEWIDTH))
+        yLegal = (self.y <= self.STAGEHEIGHT) #and self.y >= 0
+        #the STAGEHEIGHT/WIDTH was set according to different image background(surface)/ presented as school
+
+        if not (xLegal and yLegal): return False
+
+        return not Reference.isColliding(self.x,self.y,boat)
+
+    #linear interpolation, returns target velocity based on mouse distance
+    def getVelocityTargetFromMouseDist(self, dist):
+        if dist < self.minVDist: return 0
+        elif dist > self.maxVDist: return self.maxV
+        else:
+            distChange = self.maxVDist-self.minVDist
+            distFraction = (dist-self.minVDist) / distChange
+            vChange = self.maxV - self.minV
+            return self.minV + distFraction*vChange
+
+    def moveWithCollisions(self, data):
+        (oldX, oldY) = self.x, self.y
+
+        self.x += self.v * math.cos(self.angle)
+        if not self.isLocationLegal(data):
+            self.x = oldX
+            assert(self.isLocationLegal(data) == True)
+
+        self.y -= self.v * math.sin(self.angle)
+        if not self.isLocationLegal(data):
+            self.y = oldY
+            assert(self.isLocationLegal(data) == True)
+
+    def moveWithBounce(self, data):
+        self.x += self.v * math.cos(self.angle)
+        self.y -= self.v * math.sin(self.angle)
+        if not self.isLocationLegal(data):
+            self.angle += math.pi
+
+    def moveTowardsMouse(self, x, y, data):
+        dy = self.rect.y - y
+        dx = x - self.rect.x
+        self.angle = math.atan2(dy, dx)
+        dist = Utils.distance(self.rect.x, self.rect.y, x, y)
+        self.targetV = self.getVelocityTargetFromMouseDist(dist)
+        self.updateVelocity()
+        self.moveWithCollisions(data)
+        self.doTurn(x+data.screenX) #turning sprite
+
+    def deaccelInCurrentDirection(self, data):
+        self.updateVelocity()
+        self.moveWithCollisions(data)
+
+    #return top left camera coords
+    def doMove(self, data):
+        if data.mouseHeld:
+            (mouseX, mouseY) = pygame.mouse.get_pos()
+            self.moveTowardsMouse(mouseX, mouseY, data)
+
+        elif self.v > 0: #mouse up, player slows down
+            self.targetV = 0
+            self.deaccelInCurrentDirection(data)
+
+
+    #screen
+    def isWithinInteractionRadius(self, x, y):
+        return (Utils.distanceSq(x, y, self.rect.x, self.rect.y)
+                < self.interactionDistSq)
+
+    #real coords
+    def closeToInteract(self, x, y):
+        return (Utils.distanceSq(x, y, self.x, self.y) < self.interactionDistSq)
+
+    def drawself(self,surf):
+        if 0 <= self.rect.x <= 1440:
+            surf.blit(self.image, (self.rect.x, self.rect.y))
